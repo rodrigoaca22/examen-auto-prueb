@@ -49,7 +49,7 @@ jobs:
         run: |
           mkdir -p deploy/blue
           mkdir -p deploy/green
-          cp target/examen-auto-prueb-0.0.1-SNAPSHOT.jar deploy/green/app.jar
+          cp examen-auto-prueb/target/examen-auto-prueb-0.0.1-SNAPSHOT.jar deploy/green/app.jar
           echo "Versión desplegada en GREEN:"
           ls deploy/green
 

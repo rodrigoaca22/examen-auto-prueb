@@ -9,7 +9,6 @@ on:
 jobs:
   build-and-unit-tests:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
@@ -21,8 +20,8 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      # STAGE 1: BUILD + UNIT TESTS
       - name: Build + unit tests (mvn test)
+        working-directory: ./examen-auto-prueb
         run: mvn -B clean test
 
   deploy-and-acceptance:
@@ -42,6 +41,7 @@ jobs:
 
       # STAGE 2: BUILD ARTEFACTO
       - name: Construir artefacto para deploy
+        working-directory: ./examen-auto-prueb
         run: mvn -B -DskipTests clean package
 
       # STAGE 3: DEPLOY A AMBIENTE DE PRUEBAS (GREEN SIMULADO)
@@ -55,7 +55,9 @@ jobs:
 
       # STAGE 4: ACCEPTANCE TESTS (usamos los *IT como smoke/acceptance)
       - name: Ejecutar acceptance tests (CalculatorIT como prueba de aceptación)
+        working-directory: ./examen-auto-prueb
         run: mvn -B -Dtest=*IT test
+
 
       # STAGE 5: BLUE-GREEN / SWITCH
       - name: Cambiar tráfico a GREEN (simulado)

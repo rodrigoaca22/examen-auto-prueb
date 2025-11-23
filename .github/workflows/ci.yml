@@ -27,7 +27,9 @@ jobs:
           cache: 'maven'
 
       - name: Build
+        working-directory: ./examen-auto-prueb
         run: mvn -B -DskipTests clean package
 
       - name: Ejecutar pruebas unitarias e integración
+        working-directory: ./examen-auto-prueb
         run: mvn -B clean verify

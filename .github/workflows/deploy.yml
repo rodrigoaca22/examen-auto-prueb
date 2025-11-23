@@ -3,8 +3,14 @@ name: CD - Deployment a ambiente de pruebas
 on:
   push:
     branches:
-      - main        
-  workflow_dispatch: # permite ejecutarlo desde Actions
+      - main
+      - develop
+      - feature/**
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
 
 jobs:
   build-and-unit-tests:

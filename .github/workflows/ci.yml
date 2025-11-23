@@ -1,0 +1,33 @@
+name: CI - Build y Pruebas
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - feature/**
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      - name: Build
+        run: mvn -B -DskipTests clean package
+
+      - name: Ejecutar pruebas unitarias e integración
+        run: mvn -B clean verify

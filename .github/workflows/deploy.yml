@@ -3,8 +3,8 @@ name: CD - Deployment a ambiente de pruebas
 on:
   push:
     branches:
-      - main        # solo cuando algo ya estable llega a main
-  workflow_dispatch: # permite ejecutarlo a mano desde la pestaña Actions
+      - main        
+  workflow_dispatch: # permite ejecutarlo desde Actions
 
 jobs:
   build-and-unit-tests:
@@ -26,7 +26,7 @@ jobs:
 
   deploy-and-acceptance:
     runs-on: ubuntu-latest
-    needs: build-and-unit-tests    # solo corre si el job anterior fue OK
+    needs: build-and-unit-tests    
 
     steps:
       - name: Checkout código
@@ -53,7 +53,7 @@ jobs:
           echo "Versión desplegada en GREEN:"
           ls deploy/green
 
-      # STAGE 4: ACCEPTANCE TESTS (usamos los *IT como smoke/acceptance)
+      # STAGE 4
       - name: Ejecutar acceptance tests (CalculatorIT como prueba de aceptación)
         working-directory: ./examen-auto-prueb
         run: mvn -B -Dtest=*IT test
